@@ -26,8 +26,8 @@ gasutility/
 │── gas_utility/          # Contains settings, URLs, and main configurations
 ```
 
-## API Documentation
-The API is fully documented with Swagger and can be accessed here: [API Documentation](https://gas-utility.onrender.com/swagger/)
+## Deployment
+The project is deployed and API is fully documented with Swagger and can be accessed here: [API Documentation](https://gas-utility.onrender.com/swagger/)
 
 ## Test Flow
 ### 1. User Registration
