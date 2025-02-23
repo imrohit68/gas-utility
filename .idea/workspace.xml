@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ac330cb-d6c3-49bb-8b34-5ee9397785b7" name="Changes" comment="first-commit" />
+    <list default="true" id="0ac330cb-d6c3-49bb-8b34-5ee9397785b7" name="Changes" comment="remove-extra-files">
+      <change afterPath="$PROJECT_DIR$/attachments/uploads/46349922.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,6 +27,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "imrohit68"
+  }
+}]]></component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/imrohit68/gas-utility.git",
@@ -106,7 +115,7 @@
       <workItem from="1740200508297" duration="14150000" />
       <workItem from="1740227708601" duration="12669000" />
       <workItem from="1740243765407" duration="797000" />
-      <workItem from="1740253622950" duration="9917000" />
+      <workItem from="1740253622950" duration="10222000" />
     </task>
     <task id="LOCAL-00001" summary="first-commit">
       <option name="closed" value="true" />
@@ -116,7 +125,31 @@
       <option name="project" value="LOCAL" />
       <updated>1740296193862</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add-other-files">
+      <option name="closed" value="true" />
+      <created>1740296417211</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1740296417211</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add-other-files">
+      <option name="closed" value="true" />
+      <created>1740296453780</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1740296453780</updated>
+    </task>
+    <task id="LOCAL-00004" summary="remove-extra-files">
+      <option name="closed" value="true" />
+      <created>1740296541987</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1740296541987</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -124,6 +157,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first-commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="first-commit" />
+    <MESSAGE value="add-other-files" />
+    <MESSAGE value="remove-extra-files" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove-extra-files" />
   </component>
 </project>
