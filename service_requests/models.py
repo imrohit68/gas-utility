@@ -12,6 +12,11 @@ class ServiceRequest(models.Model):
         ('in_progress', 'In Progress'),
         ('resolved', 'Resolved'),
     ]
+    SERVICE_TYPES = [
+        ("installation", "Installation"),
+        ("maintenance", "Maintenance"),
+        ("repair", "Repair"),
+    ]
 
     customer = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -29,16 +34,15 @@ class ServiceRequest(models.Model):
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    service_type = models.CharField(max_length=20, choices=SERVICE_TYPES, default="maintenance")
 
     def assign_support_staff(self):
-        """Assign a random support staff member if not already assigned."""
         User = get_user_model()  # Avoid direct import
         support_staff_users = User.objects.filter(role="support_staff")
         if support_staff_users.exists():
             self.support_staff = random.choice(support_staff_users)
 
     def save(self, *args, **kwargs):
-        """Assign a support staff if not already assigned."""
         if self.support_staff is None:
             self.assign_support_staff()
         super().save(*args, **kwargs)

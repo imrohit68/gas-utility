@@ -4,6 +4,7 @@ from .views import (
     delete_service_request,
     update_service_request_status,
     list_requests,
+    download_file
 )
 
 urlpatterns = [
@@ -11,4 +12,5 @@ urlpatterns = [
     path("service-request/getAll/", list_requests, name="get_all_service_request_by_staff"),
     path("service-request/delete/<int:request_id>/", delete_service_request, name="delete_service_request"),
     path("service-request/update/<int:request_id>/", update_service_request_status, name="update_service_request"),
+    path("service-request/download/<int:attachment_id>/", download_file, name="download_file"),
 ]

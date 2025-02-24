@@ -14,7 +14,6 @@ class Attachment(models.Model):
         return f"Attachment {self.id} - {self.file.name}"
 
     def delete(self, *args, **kwargs):
-        """Delete the actual file from storage when deleting the Attachment instance."""
         if self.file:
             if os.path.isfile(self.file.path):
                 os.remove(self.file.path)

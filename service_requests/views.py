@@ -1,3 +1,4 @@
+from django.http import  FileResponse, Http404
 from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
@@ -7,6 +8,8 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from django.contrib.auth import get_user_model
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+
+from attachments.models import Attachment
 from .models import ServiceRequest
 from .serializers import ServiceRequestSerializer
 
@@ -17,6 +20,13 @@ class CustomPagination(PageNumberPagination):
     page_size_query_param = "page_size"
     max_page_size = 100
 
+SERVICE_TYPES = [
+    ("installation", "Installation"),
+    ("maintenance", "Maintenance"),
+    ("repair", "Repair"),
+]
+
+SERVICE_TYPE_CHOICES = [choice[0] for choice in SERVICE_TYPES]
 @swagger_auto_schema(
     method='post',
     operation_summary="Create a service request with attachments",
@@ -31,13 +41,13 @@ class CustomPagination(PageNumberPagination):
             required=True,
         ),
         openapi.Parameter(
-            name="attachments",  # Changed back to attachments
+            name="attachments",
             in_=openapi.IN_FORM,
-            type=openapi.TYPE_ARRAY,  # Changed to array type
-            items=openapi.Items(type=openapi.TYPE_FILE),  # Specify items as files
+            type=openapi.TYPE_ARRAY,
+            items=openapi.Items(type=openapi.TYPE_FILE),
             description="Upload one or more attachment files",
             required=False,
-            collection_format='multi'  # Add this to enable multiple file upload
+            collection_format='multi'
         ),
         openapi.Parameter(
             name="title",
@@ -51,6 +61,14 @@ class CustomPagination(PageNumberPagination):
             in_=openapi.IN_FORM,
             type=openapi.TYPE_STRING,
             description="Detailed description of the request",
+            required=True,
+        ),
+        openapi.Parameter(
+            name="service_type",
+            in_=openapi.IN_FORM,
+            type=openapi.TYPE_STRING,
+            description="Type of service request (Select from: 'installation', 'maintenance', 'repair')",
+            enum=SERVICE_TYPE_CHOICES,
             required=True,
         ),
     ],
@@ -68,7 +86,6 @@ class CustomPagination(PageNumberPagination):
 @permission_classes([IsAuthenticated])
 @parser_classes([MultiPartParser, FormParser])
 def create_service_request(request):
-    """Allows only authenticated customers to create a service request with attachments."""
     user = request.user
 
     if user.role != "customer":
@@ -77,6 +94,9 @@ def create_service_request(request):
             status=status.HTTP_403_FORBIDDEN
         )
 
+    if 'service_type' not in request.data:
+        return Response({"service_type": ["This field is required."]}, status=status.HTTP_400_BAD_REQUEST)
+
     serializer = ServiceRequestSerializer(data=request.data, context={'request': request})
 
     if serializer.is_valid():
@@ -84,6 +104,7 @@ def create_service_request(request):
         return Response(ServiceRequestSerializer(service_request).data, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @swagger_auto_schema(
@@ -95,7 +116,7 @@ def create_service_request(request):
         openapi.Parameter(
             "Authorization",
             openapi.IN_HEADER,
-            description="**Format**: Bearer <your_token>",  # Explicit format
+            description="**Format**: Bearer <your_token>",
             type=openapi.TYPE_STRING,
             required=True,
         ),
@@ -115,7 +136,6 @@ def create_service_request(request):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def list_requests(request):
-    """Fetch all service requests for the logged-in customer with pagination."""
     user = request.user
     if user.role == "support_staff":
         requests = ServiceRequest.objects.filter(support_staff=request.user)
@@ -139,7 +159,7 @@ def list_requests(request):
         openapi.Parameter(
             "Authorization",
             openapi.IN_HEADER,
-            description="**Format**: Bearer <your_token>",  # Explicit format
+            description="**Format**: Bearer <your_token>",
             type=openapi.TYPE_STRING,
             required=True,
         )
@@ -164,7 +184,6 @@ def list_requests(request):
 @api_view(["PATCH"])
 @permission_classes([IsAuthenticated])
 def update_service_request_status(request, request_id):
-    """Support staff can update the status of a service request."""
     try:
         service_request = ServiceRequest.objects.get(id=request_id, support_staff=request.user)
     except ServiceRequest.DoesNotExist:
@@ -202,7 +221,6 @@ def update_service_request_status(request, request_id):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_service_request(request, request_id):
-    """Fetch a specific service request by ID (only if it belongs to the customer)."""
     try:
         service_request = ServiceRequest.objects.get(id=request_id, customer=request.user)
         serializer = ServiceRequestSerializer(service_request)
@@ -220,7 +238,7 @@ def get_service_request(request, request_id):
         openapi.Parameter(
             "Authorization",
             openapi.IN_HEADER,
-            description="**Format**: Bearer <your_token>",  # Explicit format
+            description="**Format**: Bearer <your_token>",
             type=openapi.TYPE_STRING,
             required=True,
         )
@@ -234,7 +252,6 @@ def get_service_request(request, request_id):
 @api_view(["DELETE"])
 @permission_classes([IsAuthenticated])
 def delete_service_request(request, request_id):
-    """Customers can delete their service request if it's still pending."""
     try:
         service_request = ServiceRequest.objects.get(id=request_id, customer=request.user)
     except ServiceRequest.DoesNotExist:
@@ -251,3 +268,51 @@ def delete_service_request(request, request_id):
 
     service_request.delete()
     return Response({"detail": "Request deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+
+
+@swagger_auto_schema(
+    method="get",
+    operation_summary="Download an attachment",
+    operation_description="""
+        Allows a customer or assigned support staff to download a file attachment. 
+        The user must be either the customer who created the request or the assigned support staff\n\n
+        🔹 **Authorization Required**: Use the format `Bearer <your_token>` in the header.
+    """,
+    manual_parameters=[
+openapi.Parameter(
+            "Authorization",
+            openapi.IN_HEADER,
+            description="**Format**: Bearer <your_token>",
+            type=openapi.TYPE_STRING,
+            required=True,
+        ),
+        openapi.Parameter(
+            "attachment_id",
+            openapi.IN_PATH,
+            description="The ID of the attachment to download",
+            type=openapi.TYPE_INTEGER,
+            required=True,
+        )
+    ],
+    responses={
+        200: "File download successful",
+        403: "You do not have permission to download this file",
+        404: "Attachment not found",
+    },
+)
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def download_file(request, attachment_id):
+    try:
+        attachment = Attachment.objects.get(id=attachment_id)
+        service_request = attachment.service_request
+        if request.user != service_request.customer and request.user != service_request.support_staff:
+            return Response({"error": "You do not have permission to download this file."}, status=status.HTTP_403_FORBIDDEN)
+
+        file_path = attachment.file.path
+        return FileResponse(open(file_path, "rb"), as_attachment=True)
+
+    except Attachment.DoesNotExist:
+        return Response({"error": "Attachment not found"}, status=status.HTTP_404_NOT_FOUND)
+    except FileNotFoundError:
+        raise Http404("File not found")

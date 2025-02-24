@@ -33,9 +33,6 @@ from .serializers import UserSerializer
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def register_user(request):
-    """
-    Register a new user.
-    """
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -72,9 +69,6 @@ def register_user(request):
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def login_user(request):
-    """
-    Authenticate user and return JWT tokens.
-    """
     email = request.data.get("email")
     password = request.data.get("password")
     user = authenticate(request, email=email, password=password)
@@ -106,9 +100,6 @@ def login_user(request):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_user_profile(request):
-    """
-    Retrieve authenticated user's profile details.
-    """
     user = request.user
     serializer = UserSerializer(user)
     return Response(serializer.data)
