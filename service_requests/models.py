@@ -37,7 +37,7 @@ class ServiceRequest(models.Model):
     service_type = models.CharField(max_length=20, choices=SERVICE_TYPES, default="maintenance")
 
     def assign_support_staff(self):
-        User = get_user_model()  # Avoid direct import
+        User = get_user_model()
         support_staff_users = User.objects.filter(role="support_staff")
         if support_staff_users.exists():
             self.support_staff = random.choice(support_staff_users)

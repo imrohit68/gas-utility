@@ -90,7 +90,7 @@ def login_user(request):
         openapi.Parameter(
             "Authorization",
             openapi.IN_HEADER,
-            description="**Format**: Bearer <your_token>",  # Explicit format
+            description="**Format**: Bearer <your_token>",
             type=openapi.TYPE_STRING,
             required=True,
         )

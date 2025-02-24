@@ -37,7 +37,7 @@ class User(AbstractUser):
         ('customer', 'Customer'),
     )
 
-    username = None  # Remove default username field
+    username = None
     email = models.EmailField(unique=True, db_index=True)
     first_name = models.CharField(max_length=30, blank=True, null=True)
     last_name = models.CharField(max_length=30, blank=True, null=True)

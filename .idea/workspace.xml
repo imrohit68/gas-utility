@@ -4,32 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ac330cb-d6c3-49bb-8b34-5ee9397785b7" name="Changes" comment="uploads-fix">
-      <change afterPath="$PROJECT_DIR$/attachments/uploads/1638028070228.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachments/uploads/1638028070228_3enZqBu.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachments/uploads/1638028070228_9hHfElU.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachments/uploads/1638028070228_F1GQq8K.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachments/uploads/1638028070228_XvhTRhX.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachments/uploads/ACID-Updated.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachments/uploads/ACID-Updated_3Vte2ag.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachments/uploads/ACID-Updated_3rCH1AP.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachments/uploads/ACID-Updated_Dx9W4Dk.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachments/uploads/ACID-Updated_Hi81GCz.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachments/uploads/ACID-Updated_cJzd6Cf.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/attachments/uploads/ACID-Updated_rkrso11.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service_requests/migrations/0004_servicerequest_service_type.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3daffd58-e642-4a54-80c6-0d5dd244c9f7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3daffd58-e642-4a54-80c6-0d5dd244c9f7.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attachments/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/attachments/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service_requests/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/service_requests/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service_requests/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/service_requests/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service_requests/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/service_requests/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service_requests/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/service_requests/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="0ac330cb-d6c3-49bb-8b34-5ee9397785b7" name="Changes" comment="migration-file" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -144,7 +119,7 @@
       <workItem from="1740243765407" duration="797000" />
       <workItem from="1740253622950" duration="13998000" />
       <workItem from="1740301111634" duration="4361000" />
-      <workItem from="1740370916637" duration="1497000" />
+      <workItem from="1740370916637" duration="1664000" />
     </task>
     <task id="LOCAL-00001" summary="first-commit">
       <option name="closed" value="true" />
@@ -186,7 +161,23 @@
       <option name="project" value="LOCAL" />
       <updated>1740296630616</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added-endpoint to allow attachment download">
+      <option name="closed" value="true" />
+      <created>1740372831750</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1740372831750</updated>
+    </task>
+    <task id="LOCAL-00007" summary="migration-file">
+      <option name="closed" value="true" />
+      <created>1740372908981</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1740372908981</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -197,6 +188,8 @@
     <MESSAGE value="add-other-files" />
     <MESSAGE value="remove-extra-files" />
     <MESSAGE value="uploads-fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="uploads-fix" />
+    <MESSAGE value="added-endpoint to allow attachment download" />
+    <MESSAGE value="migration-file" />
+    <option name="LAST_COMMIT_MESSAGE" value="migration-file" />
   </component>
 </project>
